@@ -8,56 +8,35 @@
 			height: 20em;
 			width: 20em;
 			margin: 0 auto;
-			-webkit-animation:rot 4s linear infinite;	
-			-moz-animation:rot 4s linear infinite;
-			animation:rot 4s linear infinite;
 			transform-style: preserve-3d;
 			-webkit-transform-style: preserve-3d;
 			-moz-transform-style: preserve-3d;
+			transform: rotateY(5deg);
+			-webkit-transform: rotateY(5deg);
+			-moz-transform: rotateY(5deg);
 		}
 		.face{
 			height: 20em;width: 20em;position: absolute;top: 0;
-			box-sizing:border-box;
-			
+			box-sizing:border-box;			
 		}
-		@-webkit-keyframes rot{
-			 to {
-			   -webkit-transform: rotateX(360deg);
-			   -moz-transform: rotateX(360deg);
-			   transform: rotateX(360deg);
-			}
-		}
-		@-moz-keyframes rot{
-			 to {
-			   -webkit-transform: rotateX(360deg);
-			   -moz-transform: rotateX(360deg);
-			   transform: rotateX(360deg);
-			}
-		}
-		@keyframes rot{
-			 to {
-			   -webkit-transform: rotateX(360deg);
-			   -moz-transform: rotateX(360deg);
-			   transform: rotateX(360deg);
-			}
-		}
+
 		#face1{
 			background: red;
-			transform: rotateY(0deg) translateZ(5.78em);
-			-webkit-transform: rotateY(0deg) translateZ(5.78em);
-			-moz-transform: rotateY(0deg) translateZ(5.78em);
+			transform: rotateX(0deg) translateZ(5.78em);
+			-webkit-transform: rotateX(0deg) translateZ(5.78em);
+			-moz-transform: rotateX(0deg) translateZ(5.78em);
 		}
 		#face2{
 			background: yellow;
-			transform: rotateY(120deg) translateZ(5.78em);
-			-webkit-transform: rotateY(120deg) translateZ(5.78em);
-			-moz-transform: rotateY(120deg) translateZ(5.78em);
+			transform: rotateX(120deg) translateZ(5.78em);
+			-webkit-transform: rotateX(120deg) translateZ(5.78em);
+			-moz-transform: rotateX(120deg) translateZ(5.78em);
 		}
 		#face3{
 			background: blue;
-			transform: rotateY(240deg) translateZ(5.78em);
-			-webkit-transform: rotateY(240deg) translateZ(5.78em);
-			-moz-transform: rotateY(240deg) translateZ(5.78em);
+			transform: rotateX(240deg) translateZ(5.78em);
+			-webkit-transform: rotateX(240deg) translateZ(5.78em);
+			-moz-transform: rotateX(240deg) translateZ(5.78em);
 		}		
 	</style>
 </head>
@@ -68,4 +47,51 @@
 		<div class="face" id="face3"></div>
 	</div>
 </body>
+<script>
+	function setDeg(obj,deg){
+		obj.style.transform = 'rotateX('+deg+'deg) translateZ(5.78em)';
+		obj.style.webkitTransform = 'rotateX('+deg+'deg) translateZ(5.78em)';
+		obj.style.mozTransform = 'rotateX('+deg+'deg) translateZ(5.78em)';
+	}
+	var face1 = document.getElementById('face1'),
+		face2 = document.getElementById('face2'),
+		face3 = document.getElementById('face3');
+	//定义初始偏转角
+	var d1 = 0,d2 = 120,d3 = 240;
+	//初始拉力F、转盘阻力Fm、转盘质量m、加速减速控制量i,j、加速持续时间upTime(单位ms)
+	var F = 10,Fm = 9,m = 50, i=0,j=0,upTime = 5000;
+	//加速阶段加速度a1、减速阶段加速度a2
+	var a1 = 0.5,a2 = -0.3,Vm,Xm;
+	var pushF = setInterval("speedUp()",50);
+	function speedUp(){
+		var Ddeg = 0.5*a1*Math.pow(i,2);
+		var deg1 = d1 + Ddeg;
+		var deg2 = d2 + Ddeg;
+		var deg3 = d3 + Ddeg;
+		setDeg(face1,deg1);
+		setDeg(face2,deg2);
+		setDeg(face3,deg3);
+		i+=1;
+		if(i>=(upTime/50)){
+			clearInterval(pushF);
+			Vm = a1*i;
+			Xm = Ddeg;
+			pullF = setInterval("speedDown()",50);
+		}
+	}
+	function speedDown(){
+		var Ddeg = Xm+Vm*j+0.5*a2*Math.pow(j,2);
+		var deg1 = d1 + Ddeg;
+		var deg2 = d2 + Ddeg;
+		var deg3 = d3 + Ddeg;
+		setDeg(face1,deg1);
+		setDeg(face2,deg2);
+		setDeg(face3,deg3);
+		j+=1;
+		if(j >= (-Vm/a2)){
+			clearInterval(pullF);
+		}
+	}
+
+</script>
 </html>

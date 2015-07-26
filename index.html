@@ -21,19 +21,19 @@
 		}
 
 		#face1{
-			background: red;
+			border: 1em solid red;
 			transform: rotateX(0deg) translateZ(5.78em);
 			-webkit-transform: rotateX(0deg) translateZ(5.78em);
 			-moz-transform: rotateX(0deg) translateZ(5.78em);
 		}
 		#face2{
-			background: yellow;
+			border: 1em solid yellow;
 			transform: rotateX(120deg) translateZ(5.78em);
 			-webkit-transform: rotateX(120deg) translateZ(5.78em);
 			-moz-transform: rotateX(120deg) translateZ(5.78em);
 		}
 		#face3{
-			background: blue;
+			border: 1em solid blue;
 			transform: rotateX(240deg) translateZ(5.78em);
 			-webkit-transform: rotateX(240deg) translateZ(5.78em);
 			-moz-transform: rotateX(240deg) translateZ(5.78em);
@@ -42,10 +42,11 @@
 </head>
 <body>
 	<div class="container">
-		<div class="face" id="face1"></div>
-		<div class="face" id="face2"></div>
-		<div class="face" id="face3"></div>
+		<div class="face" id="face1">1</div>
+		<div class="face" id="face2">2</div>
+		<div class="face" id="face3">3</div>
 	</div>
+	<div><button onclick="start()">Start</button></div>
 </body>
 <script>
 	function setDeg(obj,deg){
@@ -59,10 +60,13 @@
 	//定义初始偏转角
 	var d1 = 0,d2 = 120,d3 = 240;
 	//初始拉力F、转盘阻力Fm、转盘质量m、加速减速控制量i,j、加速持续时间upTime(单位ms)
-	var F = 10,Fm = 9,m = 50, i=0,j=0,upTime = 5000;
+	var F = 50,Fm = 30,m = 100, i=0,j=0,upTime = 5000;
 	//加速阶段加速度a1、减速阶段加速度a2
-	var a1 = 0.5,a2 = -0.3,Vm,Xm;
-	var pushF = setInterval("speedUp()",50);
+	var a1 = (F-Fm)/m,a2 = -Fm/m,Vm,Xm;
+	function start(){
+		pushF = setInterval("speedUp()",50);
+	}
+	
 	function speedUp(){
 		var Ddeg = 0.5*a1*Math.pow(i,2);
 		var deg1 = d1 + Ddeg;
@@ -90,7 +94,26 @@
 		j+=1;
 		if(j >= (-Vm/a2)){
 			clearInterval(pullF);
+			degNow = [deg1,deg2,deg3];
+			res = getResult(degNow);
+			alert(res);
 		}
+	}
+	//返回正面朝外的索引值
+	function getResult(arr){
+		var remain = [];
+		for (var k = 0; k < arr.length; k++) {
+			remain[k] = Math.min(arr[k]%360,360-arr[k]%360);
+		};
+		minRe = Array.min(remain);
+		for (var l in remain){
+			if(remain[l] == minRe){
+				return l;
+			}
+		}
+	}
+	Array.min = function(array){
+		return Math.min.apply(Math,array);
 	}
 
 </script>

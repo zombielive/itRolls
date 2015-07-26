@@ -21,17 +21,29 @@
 		@-webkit-keyframes rot{
 			 to {  transform: rotateX(360deg); }
 		}
+		@-moz-keyframes rot{
+			 to {  transform: rotateX(360deg); }
+		}
+		@keyframes rot{
+			 to {  transform: rotateX(360deg); }
+		}
 		#face1{
 			background: red;
 			transform: rotateY(0deg) translateZ(28.9px);
+			-webkit-transform: rotateY(0deg) translateZ(28.9px);
+			-moz-transform: rotateY(0deg) translateZ(28.9px);
 		}
 		#face2{
 			background: yellow;
 			transform: rotateY(120deg) translateZ(28.9px);
+			-webkit-transform: rotateY(120deg) translateZ(28.9px);
+			-moz-transform: rotateY(120deg) translateZ(28.9px);
 		}
 		#face3{
 			background: blue;
 			transform: rotateY(240deg) translateZ(28.9px);
+			-webkit-transform: rotateY(240deg) translateZ(28.9px);
+			-moz-transform: rotateY(240deg) translateZ(28.9px);
 		}		
 	</style>
 </head>

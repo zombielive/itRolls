@@ -5,45 +5,59 @@
 	<title>Document</title>
 	<style>
 		.container{
-			height: 100px;
-			width: 100px;
+			height: 20em;
+			width: 20em;
 			margin: 0 auto;
-			-webkit-animation:rot 4s linear infinite;
-			animation:rot 4s linear infinite;
+			-webkit-animation:rot 4s linear infinite;	
 			-moz-animation:rot 4s linear infinite;
+			animation:rot 4s linear infinite;
 			transform-style: preserve-3d;
+			-webkit-transform-style: preserve-3d;
+			-moz-transform-style: preserve-3d;
 		}
 		.face{
-			height: 100px;width: 100px;position: absolute;top: 0;
+			height: 20em;width: 20em;position: absolute;top: 0;
 			box-sizing:border-box;
 			
 		}
 		@-webkit-keyframes rot{
-			 to {  transform: rotateX(360deg); }
+			 to {
+			   -webkit-transform: rotateX(360deg);
+			   -moz-transform: rotateX(360deg);
+			   transform: rotateX(360deg);
+			}
 		}
 		@-moz-keyframes rot{
-			 to {  transform: rotateX(360deg); }
+			 to {
+			   -webkit-transform: rotateX(360deg);
+			   -moz-transform: rotateX(360deg);
+			   transform: rotateX(360deg);
+			}
 		}
 		@keyframes rot{
-			 to {  transform: rotateX(360deg); }
+			 to {
+			   -webkit-transform: rotateX(360deg);
+			   -moz-transform: rotateX(360deg);
+			   transform: rotateX(360deg);
+			}
 		}
 		#face1{
 			background: red;
-			transform: rotateY(0deg) translateZ(28.9px);
-			-webkit-transform: rotateY(0deg) translateZ(28.9px);
-			-moz-transform: rotateY(0deg) translateZ(28.9px);
+			transform: rotateY(0deg) translateZ(5.78em);
+			-webkit-transform: rotateY(0deg) translateZ(5.78em);
+			-moz-transform: rotateY(0deg) translateZ(5.78em);
 		}
 		#face2{
 			background: yellow;
-			transform: rotateY(120deg) translateZ(28.9px);
-			-webkit-transform: rotateY(120deg) translateZ(28.9px);
-			-moz-transform: rotateY(120deg) translateZ(28.9px);
+			transform: rotateY(120deg) translateZ(5.78em);
+			-webkit-transform: rotateY(120deg) translateZ(5.78em);
+			-moz-transform: rotateY(120deg) translateZ(5.78em);
 		}
 		#face3{
 			background: blue;
-			transform: rotateY(240deg) translateZ(28.9px);
-			-webkit-transform: rotateY(240deg) translateZ(28.9px);
-			-moz-transform: rotateY(240deg) translateZ(28.9px);
+			transform: rotateY(240deg) translateZ(5.78em);
+			-webkit-transform: rotateY(240deg) translateZ(5.78em);
+			-moz-transform: rotateY(240deg) translateZ(5.78em);
 		}		
 	</style>
 </head>

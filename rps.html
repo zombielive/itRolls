@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.container{
+			height: 100px;
+			width: 100px;
+			margin: 0 auto;
+			-webkit-animation:rot 4s linear infinite;
+			transform-style: preserve-3d;
+		}
+		.face{
+			height: 100px;width: 100px;position: absolute;top: 0;
+			box-sizing:border-box;
+			
+		}
+		@-webkit-keyframes rot{
+			 to {  transform: rotateX(360deg); }
+		}
+		#face1{
+			background: red;
+			transform: rotateY(0deg) translateZ(28.9px);
+		}
+		#face2{
+			background: yellow;
+			transform: rotateY(120deg) translateZ(28.9px);
+		}
+		#face3{
+			background: blue;
+			transform: rotateY(240deg) translateZ(28.9px);
+		}		
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="face" id="face1"></div>
+		<div class="face" id="face2"></div>
+		<div class="face" id="face3"></div>
+	</div>
+</body>
+</html>

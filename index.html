@@ -46,7 +46,7 @@
 		<div class="face" id="face2">2</div>
 		<div class="face" id="face3">3</div>
 	</div>
-	<div><button onclick="start(a1,a2)">Start</button></div>
+	<div><button onclick="start()">Start</button></div>
 </body>
 <script>
 	function setDeg(obj,deg){
@@ -60,14 +60,14 @@
 	//定义初始偏转角
 	var d1 = 0,d2 = 120,d3 = 240;
 	//初始拉力F、转盘阻力Fm、转盘质量m、加速减速控制量i,j、加速持续时间upTime(单位ms)
-	var F = 80,Fm = 30,m = 100, i=0,j=0,upTime = 5000;
+	var F = 50,Fm = 30,m = 100, i=0,j=0,upTime = 5000;
 	//加速阶段加速度a1、减速阶段加速度a2
 	var a1 = (F-Fm)/m,a2 = -Fm/m,Vm,Xm;
-	function start(a1,a2){
-		pushF = setInterval("speedUp("+a1+","+a2+")",50);
+	function start(){
+		pushF = setInterval("speedUp()",50);
 	}
 	
-	function speedUp(a1,a2){
+	function speedUp(){
 		var Ddeg = 0.5*a1*Math.pow(i,2);
 		var deg1 = d1 + Ddeg;
 		var deg2 = d2 + Ddeg;
@@ -80,10 +80,10 @@
 			clearInterval(pushF);
 			Vm = a1*i;
 			Xm = Ddeg;
-			pullF = setInterval("speedDown("+a2+")",50);
+			pullF = setInterval("speedDown()",50);
 		}
 	}
-	function speedDown(a2){
+	function speedDown(){
 		var Ddeg = Xm+Vm*j+0.5*a2*Math.pow(j,2);
 		var deg1 = d1 + Ddeg;
 		var deg2 = d2 + Ddeg;

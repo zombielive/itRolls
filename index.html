@@ -63,8 +63,12 @@
 	var F = 80,Fm = 30,m = 100, i=0,j=0,upTime = 5000;
 	//加速阶段加速度a1、减速阶段加速度a2
 	var a1 = (F-Fm)/m,a2 = -Fm/m,Vm,Xm;
+	var lock = 1;
 	function start(a1,a2){
-		pushF = setInterval("speedUp("+a1+","+a2+")",50);
+		if(lock == 1){
+			lock = 0;
+			pushF = setInterval("speedUp("+a1+","+a2+")",50);
+		}	
 	}
 	
 	function speedUp(a1,a2){
@@ -81,6 +85,7 @@
 			Vm = a1*i;
 			Xm = Ddeg;
 			pullF = setInterval("speedDown("+a2+")",50);
+			i = 0;
 		}
 	}
 	function speedDown(a2){
@@ -97,6 +102,11 @@
 			degNow = [deg1,deg2,deg3];
 			res = getResult(degNow);
 			alert(res);
+			j = 0;
+			lock = 1;
+			d1 = deg1;
+			d2 = deg2;
+			d3 = deg3;
 		}
 	}
 	//返回正面朝外的索引值

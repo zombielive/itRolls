@@ -1,10 +1,12 @@
-FACE_NUM = 3;
+test = ["小可爱是胖子","小可爱是傻子","小可爱20+","小可爱单身狗","小可爱170kg","小可爱喜欢说毛毛"];
+FACE_NUM = test.length;
 CONTAINER_HEIGHT = window.innerHeight*0.5;
 if (window.innerHeight > window.innerWidth) {
 	CONTAINER_WIDTH = window.innerWidth*0.9;
 }else{
 	CONTAINER_WIDTH = window.innerWidth*0.5;
 };
+FACE_HEIGHT = CONTAINER_HEIGHT*Math.cos((180-360/FACE_NUM)/360*Math.PI);
 COLOR = ["red","yellow","blue"];
 //定义初始偏转角
 D = [];
@@ -12,7 +14,7 @@ for (var i = 0; i < FACE_NUM; i++) {
 	D[i] = 360/FACE_NUM*i;
 };
 //定义每个面的z轴偏移translateZ值
-TRANSLATEZ = "5.78em";
+TRANSLATEZ = FACE_HEIGHT/2*Math.tan((180-360/FACE_NUM)/360*Math.PI);
 //初始拉力F、转盘阻力FM、转盘质量M、加速减速控制量i,j、加速持续时间UPTIME(单位ms)
 F = 80,FM = 30,M = 100, SPDI=0,SPDJ=0,UPTIME = 5000;
 //加速阶段加速度A1、减速阶段加速度A2
@@ -30,13 +32,14 @@ window.onload = function(){
 		face[i] = document.createElement("div");
 		face[i].className = "face";
 		face[i].id = "face"+i;
+		face[i].innerHTML = test[i];
 		//给每个面设置样式
-		face[i].style.height = CONTAINER_HEIGHT + "px";
+		face[i].style.height = FACE_HEIGHT+ "px";
 		face[i].style.width = CONTAINER_WIDTH + "px";
-		face[i].style.border = "1em solid "+COLOR[Math.floor(Math.random()*COLOR.length)];
-		face[i].style.transform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+")";
-		face[i].style.webkitTransform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+")";
-		face[i].style.mozTransform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+")";
+		face[i].style.border = "1px solid "+COLOR[Math.floor(Math.random()*COLOR.length)];
+		face[i].style.transform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
+		face[i].style.webkitTransform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
+		face[i].style.mozTransform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
 		container.appendChild(face[i]);
 	}
 
@@ -49,9 +52,9 @@ function start(A1,A2){
 }
 //旋转过程中改变各个面的旋转角度
 function setDeg(obj,deg){
-	obj.style.transform = "rotateX("+deg+"deg) translateZ("+TRANSLATEZ+")";
-	obj.style.webkitTransform = "rotateX("+deg+"deg) translateZ("+TRANSLATEZ+")";
-	obj.style.mozTransform = "rotateX("+deg+"deg) translateZ("+TRANSLATEZ+")";
+	obj.style.transform = "rotateX("+deg+"deg) translateZ("+TRANSLATEZ+"px)";
+	obj.style.webkitTransform = "rotateX("+deg+"deg) translateZ("+TRANSLATEZ+"px)";
+	obj.style.mozTransform = "rotateX("+deg+"deg) translateZ("+TRANSLATEZ+"px)";
 }
 //加速运动过程
 function speedUp(A1,A2){
@@ -83,7 +86,7 @@ function speedDown(A2){
 		clearInterval(pullF);
 		degNow = deg;
 		res = getResult(degNow);
-		alert(res);
+		alert(test[res]);
 		SPDJ = 0;
 		LOCK = 1;
 	for (var i = 0; i < FACE_NUM; i++) {

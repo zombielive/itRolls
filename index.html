@@ -4,10 +4,8 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<style>
-		.container{
-			height: 20em;
-			width: 20em;
-			margin: 0 auto;
+		#container{
+			position: absolute;left: 50%;top: 50%;
 			transform-style: preserve-3d;
 			-webkit-transform-style: preserve-3d;
 			-moz-transform-style: preserve-3d;
@@ -16,115 +14,15 @@
 			-moz-transform: rotateY(5deg);
 		}
 		.face{
-			height: 20em;width: 20em;position: absolute;top: 0;
-			box-sizing:border-box;			
-		}
-
-		#face1{
-			border: 1em solid red;
-			transform: rotateX(0deg) translateZ(5.78em);
-			-webkit-transform: rotateX(0deg) translateZ(5.78em);
-			-moz-transform: rotateX(0deg) translateZ(5.78em);
-		}
-		#face2{
-			border: 1em solid yellow;
-			transform: rotateX(120deg) translateZ(5.78em);
-			-webkit-transform: rotateX(120deg) translateZ(5.78em);
-			-moz-transform: rotateX(120deg) translateZ(5.78em);
-		}
-		#face3{
-			border: 1em solid blue;
-			transform: rotateX(240deg) translateZ(5.78em);
-			-webkit-transform: rotateX(240deg) translateZ(5.78em);
-			-moz-transform: rotateX(240deg) translateZ(5.78em);
-		}		
+			position: absolute;top: 0;
+			box-sizing:border-box;		
+		}	
 	</style>
+	<script type="text/javascript" src="./roll.js"></script>
 </head>
 <body>
-	<div class="container">
-		<div class="face" id="face1">1</div>
-		<div class="face" id="face2">2</div>
-		<div class="face" id="face3">3</div>
+	<div id="container">
 	</div>
-	<div><button onclick="start(a1,a2)">Start</button></div>
+	<div><button onclick="start(A1,A2)">Start</button></div>
 </body>
-<script>
-	function setDeg(obj,deg){
-		obj.style.transform = 'rotateX('+deg+'deg) translateZ(5.78em)';
-		obj.style.webkitTransform = 'rotateX('+deg+'deg) translateZ(5.78em)';
-		obj.style.mozTransform = 'rotateX('+deg+'deg) translateZ(5.78em)';
-	}
-	var face1 = document.getElementById('face1'),
-		face2 = document.getElementById('face2'),
-		face3 = document.getElementById('face3');
-	//定义初始偏转角
-	var d1 = 0,d2 = 120,d3 = 240;
-	//初始拉力F、转盘阻力Fm、转盘质量m、加速减速控制量i,j、加速持续时间upTime(单位ms)
-	var F = 80,Fm = 30,m = 100, i=0,j=0,upTime = 5000;
-	//加速阶段加速度a1、减速阶段加速度a2
-	var a1 = (F-Fm)/m,a2 = -Fm/m,Vm,Xm;
-	var lock = 1;
-	function start(a1,a2){
-		if(lock == 1){
-			lock = 0;
-			pushF = setInterval("speedUp("+a1+","+a2+")",50);
-		}	
-	}
-	
-	function speedUp(a1,a2){
-		var Ddeg = 0.5*a1*Math.pow(i,2);
-		var deg1 = d1 + Ddeg;
-		var deg2 = d2 + Ddeg;
-		var deg3 = d3 + Ddeg;
-		setDeg(face1,deg1);
-		setDeg(face2,deg2);
-		setDeg(face3,deg3);
-		i+=1;
-		if(i>=(upTime/50)){
-			clearInterval(pushF);
-			Vm = a1*i;
-			Xm = Ddeg;
-			pullF = setInterval("speedDown("+a2+")",50);
-			i = 0;
-		}
-	}
-	function speedDown(a2){
-		var Ddeg = Xm+Vm*j+0.5*a2*Math.pow(j,2);
-		var deg1 = d1 + Ddeg;
-		var deg2 = d2 + Ddeg;
-		var deg3 = d3 + Ddeg;
-		setDeg(face1,deg1);
-		setDeg(face2,deg2);
-		setDeg(face3,deg3);
-		j+=1;
-		if(j >= (-Vm/a2)){
-			clearInterval(pullF);
-			degNow = [deg1,deg2,deg3];
-			res = getResult(degNow);
-			alert(res);
-			j = 0;
-			lock = 1;
-			d1 = deg1;
-			d2 = deg2;
-			d3 = deg3;
-		}
-	}
-	//返回正面朝外的索引值
-	function getResult(arr){
-		var remain = [];
-		for (var k = 0; k < arr.length; k++) {
-			remain[k] = Math.min(arr[k]%360,360-arr[k]%360);
-		};
-		minRe = Array.min(remain);
-		for (var l in remain){
-			if(remain[l] == minRe){
-				return l;
-			}
-		}
-	}
-	Array.min = function(array){
-		return Math.min.apply(Math,array);
-	}
-
-</script>
 </html>

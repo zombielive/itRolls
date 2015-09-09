@@ -1,26 +1,37 @@
-test = ["小可爱是胖子","小可爱是傻子","小可爱20+","小可爱单身狗","小可爱170kg","小可爱喜欢说毛毛"];
-FACE_NUM = test.length;
-CONTAINER_HEIGHT = window.innerHeight*0.5;
-if (window.innerHeight > window.innerWidth) {
-	CONTAINER_WIDTH = window.innerWidth*0.9;
+if (!localStorage.getItem("nameStr")) {
+	test = ["测试机1号","测试机2号","测试机3号"];
+	F = 80;FM = 30; M = 100; MODE = 0;UPTIME = 3000;
 }else{
-	CONTAINER_WIDTH = window.innerWidth*0.5;
-};
-FACE_HEIGHT = CONTAINER_HEIGHT*Math.cos((180-360/FACE_NUM)/360*Math.PI);
-COLOR = ["red","yellow","blue"];
-//定义初始偏转角
-D = [];
-for (var i = 0; i < FACE_NUM; i++) {
-	D[i] = 360/FACE_NUM*i;
-};
-//定义每个面的z轴偏移translateZ值
-TRANSLATEZ = FACE_HEIGHT/2*Math.tan((180-360/FACE_NUM)/360*Math.PI);
-//初始拉力F、转盘阻力FM、转盘质量M、加速减速控制量i,j、加速持续时间UPTIME(单位ms)
-F = 80,FM = 30,M = 100, SPDI=0,SPDJ=0,UPTIME = 5000;
-//加速阶段加速度A1、减速阶段加速度A2
-A1 = (F-FM)/M,A2 = -FM/M;VM = 0;XM = 0;
-LOCK = 1;
-window.onload = function(){
+	test = localStorage.getItem("nameStr").split(",");
+	//初始拉力F、转盘阻力FM、转盘质量M、加速持续时间UPTIME(单位ms)
+	F = localStorage.getItem("F");
+	FM = localStorage.getItem("FM");
+	M = localStorage.getItem("M");
+	MODE = localStorage.getItem("MODE");
+	UPTIME = localStorage.getItem("UPTIME");
+}
+function createRoll () {
+	container.innerHTML = "";
+	FACE_NUM = test.length;
+	CONTAINER_HEIGHT = window.innerHeight*0.7;
+	if (window.innerHeight > window.innerWidth) {
+		CONTAINER_WIDTH = window.innerWidth*0.9;
+	}else{
+		CONTAINER_WIDTH = window.innerWidth*0.5;
+	};
+	FACE_HEIGHT = CONTAINER_HEIGHT*Math.cos((180-360/FACE_NUM)/360*Math.PI);
+	COLOR = ["red","yellow","blue"];
+	//定义初始偏转角
+	D = [];
+	for (var i = 0; i < FACE_NUM; i++) {
+		D[i] = 360/FACE_NUM*i;
+	};
+	//定义每个面的z轴偏移translateZ值
+	TRANSLATEZ = FACE_HEIGHT/2*Math.tan((180-360/FACE_NUM)/360*Math.PI);
+	//加速减速控制量i,j
+	SPDI=0;SPDJ=0;
+	//加速阶段加速度A1、减速阶段加速度A2
+	A1 = (F-FM)/M,A2 = -FM/M;VM = 0;XM = 0;
 	container = document.getElementById("container");
 	container.style.height = CONTAINER_HEIGHT + "px";
 	container.style.width = CONTAINER_WIDTH + "px";
@@ -42,7 +53,11 @@ window.onload = function(){
 		face[i].style.mozTransform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
 		container.appendChild(face[i]);
 	}
+}
 
+LOCK = 1;
+window.onload = function(){
+	createRoll();
 }
 function start(A1,A2){
 	if(LOCK == 1){
@@ -87,11 +102,16 @@ function speedDown(A2){
 		degNow = deg;
 		res = getResult(degNow);
 		alert(test[res]);
-		SPDJ = 0;
+		if (MODE == 1) {
+			test.splice(res,1);
+			createRoll();
+		}else if(MODE == 0){
+			for (var i = 0; i < FACE_NUM; i++) {
+				D[i] = deg[i];
+			};			
+		}
+		SPDJ = 0;	
 		LOCK = 1;
-	for (var i = 0; i < FACE_NUM; i++) {
-		D[i] = deg[i];
-	};
 	}
 }
 //返回正面朝外的索引值

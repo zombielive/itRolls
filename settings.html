@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>设置</title>
+        <style>
+			#container{width: 80%;margin: 0 auto;}
+			.cards{background: red;}
+        </style>
+	<script type="text/javascript" src="./set.js"></script>
+    </head>
+    <body>
+    	<a href="./roll.html">去转盘</a>
+	    <div id="container">
+	    	<div id="statusList">
+	    		<div><span>拉力：</span><input type="text" id="F"></div>
+	    		<div><span>阻力：</span><input type="text" id="FM"></div>
+	    		<div><span>质量：</span><input type="text" id="M"></div>
+	    		<div><span>加速持续时间(ms)：</span><input text="text" id="UPTIME"></div>
+	    		<div><span>运行模式：</span><input text="text" id="MODE"></div>
+	    		<button onclick="editArg()">修改转盘参数</button>
+	    	</div>
+	    	<div id="inputFace"><input type="text" id="keyIn" /><button onclick="addItem()">加入</button></div>
+	    	<button onclick="restore()">恢复默认值</button>
+	    	<button onclick="clearAll()">清空全部</button>	    	
+	    	<div id="display"></div>
+	    </div>
+    </body>
+</html>

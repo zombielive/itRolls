@@ -30,6 +30,7 @@ function addItem(){
 }
 //刷新同步展示框内内容
 function showItem(){
+	var color = ["#F4FCE8","#FFFFFF","#FFFEED","#FAF2F8"];
 	var display = document.getElementById("display");
 	display.innerHTML = "";
 	var nameStr = localStorage.getItem("nameStr");
@@ -39,6 +40,7 @@ function showItem(){
 		for (var i = 0; i < names.length; i++) {
 			card = document.createElement("div");
 			card.className = "cards";
+			card.style.backgroundColor = color[i%4];
 			card.innerHTML = names[i];
 			display.appendChild(card);
 		};		

@@ -20,7 +20,7 @@ function createRoll () {
 		CONTAINER_WIDTH = window.innerWidth*0.5;
 	};
 	FACE_HEIGHT = CONTAINER_HEIGHT*Math.cos((180-360/FACE_NUM)/360*Math.PI);
-	COLOR = ["red","yellow","blue"];
+	COLOR = ["#F4FCE8","#FFFFFF","#FFFEED","#FAF2F8"];
 	//定义初始偏转角
 	D = [];
 	for (var i = 0; i < FACE_NUM; i++) {
@@ -46,8 +46,11 @@ function createRoll () {
 		face[i].innerHTML = test[i];
 		//给每个面设置样式
 		face[i].style.height = FACE_HEIGHT+ "px";
+		face[i].style.lineHeight = FACE_HEIGHT+ "px";
 		face[i].style.width = CONTAINER_WIDTH + "px";
-		face[i].style.border = "1px solid "+COLOR[Math.floor(Math.random()*COLOR.length)];
+		face[i].style.marginTop = CONTAINER_HEIGHT/2-FACE_HEIGHT/2 + "px";
+		face[i].style.backgroundColor = COLOR[i%4];
+		face[i].style.fontSize = CONTAINER_WIDTH/8+"px";
 		face[i].style.transform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
 		face[i].style.webkitTransform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
 		face[i].style.mozTransform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
@@ -62,6 +65,7 @@ window.onload = function(){
 function start(A1,A2){
 	if(LOCK == 1){
 		LOCK = 0;
+		document.getElementById("screen").style.display = "block";
 		pushF = setInterval("speedUp("+A1+","+A2+")",50);
 	}	
 }
@@ -101,7 +105,7 @@ function speedDown(A2){
 		clearInterval(pullF);
 		degNow = deg;
 		res = getResult(degNow);
-		alert(test[res]);
+		showResult(res);
 		if (MODE == 1) {
 			test.splice(res,1);
 			createRoll();
@@ -129,4 +133,34 @@ function getResult(arr){
 }
 Array.min = function(array){
 	return Math.min.apply(Math,array);
+}
+//展示最终结果
+function showResult (index) {
+	//创建结果展示卡
+	var msBox = document.createElement("div");
+	msBox.style.width = window.innerWidth*0.5 + "px";
+	msBox.style.height = window.innerHeight*0.5 + "px";
+	msBox.style.margin = "20% auto";
+	msBox.style.borderRadius = "10px";
+	msBox.style.fontSize = window.innerHeight*0.1 + "px";
+	msBox.style.textAlign = "center";
+	msBox.style.color = "#474847";
+	msBox.style.lineHeight = msBox.style.height;
+	msBox.style.backgroundColor = face[index].style.backgroundColor;
+	msBox.innerHTML = test[index];
+	//创建继续按钮
+	var goOn = document.createElement("div");
+	goOn.className = "btn";
+	goOn.innerHTML = "继续";
+	//screen出现
+	var theScreen = document.getElementById("screen");
+	theScreen.appendChild(msBox);
+	theScreen.appendChild(goOn);
+	theScreen.style.display = "block";
+	theScreen.style.backgroundColor = "rgba(0,0,0,0.8)";
+	goOn.onclick = function(){
+		theScreen.innerHTML = "";
+		theScreen.style.backgroundColor = "transparent";
+		theScreen.style.display = "none";
+	}
 }

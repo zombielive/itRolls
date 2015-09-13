@@ -2,28 +2,142 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>设置</title>
+        <title>settings-itRolls</title>
         <style>
+	        body{
+				margin: 0;
+				padding: 0;
+				border: 0;
+				background: #C2A67C;
+			}
+			a,a:hover{
+				text-decoration: none;
+			}
+			#topBar{
+				height: 50px;
+				background: #FAEED7;
+				color: #5c5d5f;
+				border-bottom: 1px solid #C2A67C;
+			}
+			#topBar a{
+				color: #5c5d5f;
+				display: inline-block;
+				height: 50px;
+				line-height: 50px;
+				padding: 0 20px;
+			}
+			#topBar a:hover{
+				color: #f5f5f5;
+				background: #B07A48;
+			}
+			#logo{
+				height: 50px;
+				line-height: 50px;
+				margin: 0 25px;
+				float: left;
+				font-size: 2em;
+				cursor: pointer;
+			}
 			#container{width: 80%;margin: 0 auto;}
-			.cards{background: red;}
+			#statusList{
+				background: #fff;
+				line-height: 2em;
+				padding: 20px;
+				border-radius: 5px;
+			}
+			#statusList input{
+				height: 1.5em;
+				width: 5em;
+				text-align: right;
+				margin-right: 2em;
+			}
+			.button{
+				width: 150px;
+				text-align: center;
+				margin-top: 20px;
+				padding: 5px;
+				background: #FFB054;
+				color: #fff;
+				cursor: pointer;
+			}
+			.button:hover{
+				background: #EE632A;
+				box-shadow: 0 0 5px #EE632A;
+			}
+			.redfont{
+				color: #FF6F6F;
+				line-height: 1.8em;
+			}
+			.clear:after{
+				content:".";        
+			    display:block;        
+			    height:0;        
+			    clear:both;        
+			    visibility:hidden;
+			}
+			#keyIn{
+				padding: 0 0.5em;
+				margin-top: 20px;
+				width: 80%;height: 30px;
+				font-size: 20px;
+				float: left;
+			}
+			#addBtn{
+				width: 10%;height: 36px;line-height: 36px;
+				padding:0;
+				float: left;
+			}
+			#display{
+				background: #fff;
+				padding: 20px;
+				border-radius: 5px;
+				text-align: center;
+			}
+			.cards{
+				width: 20%;
+				height: 150px;
+				line-height: 150px;
+				font-size: 2em;
+				color: #474847;
+				float: left;
+				margin: 10px;
+				background: red;
+			}
+			.bottom{
+				text-align: center;
+				line-height: 1.5em;
+				color: #474847;
+				margin-top: 20px;
+			}
         </style>
 	<script type="text/javascript" src="./set.js"></script>
     </head>
     <body>
-    	<a href="./roll.html">去转盘</a>
+	    <div id="topBar">
+			<div id="logo">itRollls</div>
+			<a href="./roll.html">转盘</a>
+			<a href="./settings.html">后门</a>
+		</div>
 	    <div id="container">
+	    	<div class="button" onclick="restore()">恢复默认值</div>
+	    	<span class="redfont">*将会恢复转盘参数以及内部数据</span>
 	    	<div id="statusList">
-	    		<div><span>拉力：</span><input type="text" id="F"></div>
-	    		<div><span>阻力：</span><input type="text" id="FM"></div>
-	    		<div><span>质量：</span><input type="text" id="M"></div>
-	    		<div><span>加速持续时间(ms)：</span><input text="text" id="UPTIME"></div>
-	    		<div><span>运行模式：</span><input text="text" id="MODE"></div>
-	    		<button onclick="editArg()">修改转盘参数</button>
+	    		<div><span>拉力：</span><input type="text" id="F"><span class="redfont">*拉力不能小于阻力好吗</span></div>
+	    		<div><span>阻力：</span><input type="text" id="FM"><span class="redfont">*嗯阻力不要太大</span></div>  		
+	    		<div><span>质量：</span><input type="text" id="M"><span class="redfont">*我不会告诉你这个参数是懒得化简公式才设的</span></div>
+	    		<div><span>加速持续时间：</span><input text="text" id="UPTIME"><span class="redfont">*单位是ms！单位是ms！单位是ms！</span></div>
+	    		<div><span>运行模式：</span><input text="text" id="MODE"><span class="redfont">*0是循环模式，1是淘汰模式（才不是攻受呢想哪去了）</span></div>
+	    		<div class="button" onclick="editArg()">修改转盘参数</div>
 	    	</div>
-	    	<div id="inputFace"><input type="text" id="keyIn" /><button onclick="addItem()">加入</button></div>
-	    	<button onclick="restore()">恢复默认值</button>
-	    	<button onclick="clearAll()">清空全部</button>	    	
-	    	<div id="display"></div>
+	    	<div id="inputFace" class="clear"><input type="text" id="keyIn" /><div id="addBtn" class="button" onclick="addItem()">加入</div></div>	
+	    	<span class="redfont">*用英文逗号”,“分隔，最后一项不加逗号，重复项会自动去重</span> 	
+	    	<div class="button" onclick="clearAll()">清空全部</div>
+	    	<span class="redfont">*将会清空转盘内部数据</span>
+	    	<div id="display" class="clear"></div>
+	    	<div class="bottom">
+	    		2015&copy;zombielive<br/>
+	    		配色由 <a href="http://icolorway.rijnx.com/" target="_blank">iColorway 色彩的魔法</a> 逼格提供
+	    	</div>
 	    </div>
     </body>
 </html>

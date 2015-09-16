@@ -1,4 +1,4 @@
-if (!localStorage.getItem("nameStr")) {
+﻿if (!localStorage.getItem("nameStr")) {
 	test = ["测试机1号","测试机2号","测试机3号"];
 	F = 80;FM = 30; M = 100; MODE = 0;UPTIME = 3000;
 }else{
@@ -140,7 +140,9 @@ function showResult (index) {
 	var msBox = document.createElement("div");
 	msBox.style.width = window.innerWidth*0.5 + "px";
 	msBox.style.height = window.innerHeight*0.5 + "px";
-	msBox.style.margin = "20% auto";
+	msBox.style.margin = "auto";
+	msBox.style.position = "relative";
+	msBox.style.top = "20%";
 	msBox.style.borderRadius = "10px";
 	msBox.style.fontSize = window.innerHeight*0.1 + "px";
 	msBox.style.textAlign = "center";

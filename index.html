@@ -1,12 +1,99 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>ItRolls</title>
-    </head>
-    
-    <body>
-    	<a href="./roll.html">转起来Roll it</a>
-    	<a href="./settings.html">设置Setting</a>
-    </body>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo-itRolls</title>
+	<style>
+		body{
+			font-family: "Segoe UI","Microsoft Yahei";
+			margin: 0;
+			padding: 0;
+			border: 0;
+			background: #C2A67C;
+		}
+		a,a:hover{
+			text-decoration: none;
+		}
+		#topBar{
+			height: 50px;
+			background: #FAEED7;
+			color: #5c5d5f;
+			border-bottom: 1px solid #C2A67C;
+		}
+		#topBar a{
+			color: #5c5d5f;
+			display: inline-block;
+			height: 50px;
+			line-height: 50px;
+			padding: 0 20px;
+		}
+		#topBar a:hover{
+			color: #f5f5f5;
+			background: #B07A48;
+		}
+		#logo{
+			height: 50px;
+			line-height: 50px;
+			margin: 0 25px;
+			float: left;
+			font-size: 2em;
+			cursor: pointer;
+		}
+		#container{
+			position: absolute;left: 50%;top: 50%;
+			color: #474847;
+			font-weight: lighter;
+			transform-style: preserve-3d;
+			-webkit-transform-style: preserve-3d;
+			-moz-transform-style: preserve-3d;
+			transform: rotateY(5deg);
+			-webkit-transform: rotateY(5deg);
+			-moz-transform: rotateY(5deg);
+		}
+		.face{
+			position: absolute;top: 0;
+			text-align: center;
+			box-sizing:border-box;		
+		}
+		.btn{
+			position: fixed;
+			left: 50%;bottom: 5%;
+			margin-left: -75px;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			font-size: 2em;
+			width: 150px;
+			background: #FF6363;
+			color: #fff;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+		.btn:hover{
+			background: #FF7A7A;
+			box-shadow: 0 0 5px #FF7A7A;
+		}
+		#screen{
+			position: fixed;
+			top: 0;
+			background: transparent;
+			height: 100%;
+			width: 100%;
+			z-index: 99;
+			display: none;
+		}
+	</style>
+	<script type="text/javascript" src="./roll.js"></script>
+</head>
+<body>	
+	<div id="topBar">
+		<div id="logo">itRollls</div>
+		<a href="./index.html">转盘</a>
+		<a href="./settings.html">后门</a>
+	</div>
+	<div id="container">
+	</div>
+	<div class="btn" onclick="start(A1,A2)">Start</div>
+	<div id="screen"></div>
+</body>
 </html>

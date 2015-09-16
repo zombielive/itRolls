@@ -1,6 +1,6 @@
 # itRolls
-  一个模拟物理转盘的基于**CSS3**以及**HTML5 Localstorage**的随机选择本地小工具。
-  
+  一个模拟物理转盘的基于**CSS3**以及**HTML5 Localstorage**的随机选择本地小工具。**不兼容移动端!**
+
   
   主要由转盘页面及设置页面组成。演示地址：[点击此处](http://zombielive.github.io/itRolls/)
 ##使用说明

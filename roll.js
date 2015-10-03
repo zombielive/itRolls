@@ -50,7 +50,7 @@ function createRoll () {
 		face[i].style.width = CONTAINER_WIDTH + "px";
 		face[i].style.marginTop = CONTAINER_HEIGHT/2-FACE_HEIGHT/2 + "px";
 		face[i].style.backgroundColor = COLOR[i%4];
-		face[i].style.fontSize = CONTAINER_WIDTH/8+"px";
+		face[i].style.fontSize = Math.min(CONTAINER_WIDTH/8,FACE_HEIGHT*0.8)+"px";
 		face[i].style.transform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
 		face[i].style.webkitTransform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
 		face[i].style.mozTransform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";

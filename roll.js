@@ -38,23 +38,37 @@ function createRoll () {
 	container.style.marginLeft = -(CONTAINER_WIDTH/2) + "px";
 	container.style.marginTop = -(CONTAINER_HEIGHT/2) + "px";	
 	//创建面元素
-	face = [];
-	for (var i = 0;i < FACE_NUM;i++){
-		face[i] = document.createElement("div");
-		face[i].className = "face";
-		face[i].id = "face"+i;
-		face[i].innerHTML = test[i];
-		//给每个面设置样式
-		face[i].style.height = FACE_HEIGHT+ "px";
-		face[i].style.lineHeight = FACE_HEIGHT+ "px";
-		face[i].style.width = CONTAINER_WIDTH + "px";
-		face[i].style.marginTop = CONTAINER_HEIGHT/2-FACE_HEIGHT/2 + "px";
-		face[i].style.backgroundColor = COLOR[i%4];
-		face[i].style.fontSize = Math.min(CONTAINER_WIDTH/8,FACE_HEIGHT*0.8)+"px";
-		face[i].style.transform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
-		face[i].style.webkitTransform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
-		face[i].style.mozTransform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
-		container.appendChild(face[i]);
+	if (FACE_NUM > 2) {
+		face = [];
+		for (var i = 0;i < FACE_NUM;i++){
+			face[i] = document.createElement("div");
+			face[i].className = "face";
+			face[i].id = "face"+i;
+			face[i].innerHTML = test[i];
+			//给每个面设置样式
+			face[i].style.fontSize = Math.min(CONTAINER_WIDTH/8,FACE_HEIGHT*0.8)+"px";
+			face[i].style.height = FACE_HEIGHT+ "px";
+			face[i].style.lineHeight = FACE_HEIGHT+ "px";
+			face[i].style.width = CONTAINER_WIDTH + "px";
+			face[i].style.marginTop = CONTAINER_HEIGHT/2-FACE_HEIGHT/2 + "px";
+			face[i].style.backgroundColor = COLOR[i%4];
+			face[i].style.transform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
+			face[i].style.webkitTransform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
+			face[i].style.mozTransform = "rotateX("+D[i]+"deg) translateZ("+TRANSLATEZ+"px)";
+			container.appendChild(face[i]);
+		}
+	}else{
+		var finalFace = document.createElement("div");
+		finalFace.className = "face";
+		finalFace.innerHTML = test[0] + "<br /><span style='color:#FF6363'>❤</span><br />" + test[1];
+		finalFace.style.fontSize = Math.min(CONTAINER_WIDTH/8,FACE_HEIGHT*0.8)+"px";
+		finalFace.style.height = FACE_HEIGHT+ "px";
+		finalFace.style.lineHeight = FACE_HEIGHT/3+ "px";
+		finalFace.style.width = CONTAINER_WIDTH + "px";
+		finalFace.style.marginTop = CONTAINER_HEIGHT/2-FACE_HEIGHT/2 + "px";
+		finalFace.style.backgroundColor = COLOR[i%4];
+		container.appendChild(finalFace);
+		LOCK = 0;
 	}
 }
 

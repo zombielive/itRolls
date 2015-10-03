@@ -61,7 +61,7 @@ function createRoll () {
 		var finalFace = document.createElement("div");
 		finalFace.className = "face";
 		finalFace.innerHTML = test[0] + "<br /><span style='color:#FF6363'>❤</span><br />" + test[1];
-		finalFace.style.fontSize = Math.min(CONTAINER_WIDTH/8,FACE_HEIGHT*0.8)+"px";
+		finalFace.style.fontSize = CONTAINER_WIDTH/8+"px";
 		finalFace.style.height = FACE_HEIGHT+ "px";
 		finalFace.style.lineHeight = FACE_HEIGHT/3+ "px";
 		finalFace.style.width = CONTAINER_WIDTH + "px";
